@@ -1,0 +1,40 @@
+*{
+    /* background-color: red; */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+body #heading{
+    padding-top: 3%;
+    padding-bottom: 3% ;
+    /* background-color: red; */
+    text-align: center;
+}
+
+body #avatarDiv{
+    display:none;
+    border-radius: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+
+    margin-top: 5%;
+    margin-bottom: 3%;
+    padding: 20px;
+    text-align: center;
+}
+
+body #generate-btn
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#previewImg{
+    padding: 4px;
+}
+
+body #inputsRow{
+    padding-left: 25%;
+    padding-right: 25%;
+}
