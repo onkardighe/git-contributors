@@ -1,0 +1,23 @@
+{
+  "name": "git-contributors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onkardighe/git-contributors.git"
+  },
+  "keywords": [
+    "git"
+  ],
+  "author": "Onkar Dighe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onkardighe/git-contributors/issues"
+  },
+  "homepage": "https://github.com/onkardighe/git-contributors#readme"
+}
