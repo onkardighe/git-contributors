@@ -4,20 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/onkardighe/git-contributors.git"
-  },
-  "keywords": [
-    "git"
-  ],
-  "author": "Onkar Dighe",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/onkardighe/git-contributors/issues"
-  },
-  "homepage": "https://github.com/onkardighe/git-contributors#readme"
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
