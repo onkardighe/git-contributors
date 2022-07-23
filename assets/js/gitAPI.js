@@ -33,7 +33,7 @@ function getPreview(userName, repoName)
             let contribGraphsUrl = "https://github.com/"+userName+"/"+repoName+"/graphs/contributors";
             imagePromise.then(function(url){
                 setDB(userName, repoName, url);
-                $("#urlCodeBlock").val("<a href='"+contribGraphsUrl+"'>\n\t<img src='"+url+"'>\n\t</img>\n</a>\n\nMade with [Git Contributors](https://github.com/onkardighe/git-contributors).");
+                $("#urlCodeBlock").val("<a href='"+contribGraphsUrl+"'>\n\t<img src='"+url+"'>\n\t</img>\n</a>\n\nMade with [Git Contributors](https://git-contributes.herokuapp.com).");
             });
             promise = imagePromise;
         });
