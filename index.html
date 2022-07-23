@@ -28,19 +28,29 @@
             <div class="col " id="inputs">
                 <div class="form-floating" >
                     <input type="text" class="form-control" id="gitRepo" placeholder="Github Repository Name">
-                    <label for="floatingInputValue">Github Repository Name</label>
+                    <label for="floatingInputValue">Github Repository</label>
                 </div>
             </div>
             <div id="generate-btn">
                     <button id="Generate" class="btn btn-outline-dark ">Generate & Capture</button>
             </div>
-            <!-- <div id='getUrl-btnDiv'><button id='getUrl-btn' class="btn btn-outline-primary ">Get Image URL !</button></div> -->
     </div>
     
+    <!-- AVATAR DIV : Avatar images to be added in this division-->
     <div id="avatarDiv" class="shadow p-3 mb-5 bg-body rounded"></div>
+
+    <!-- CODE DIV : Code snippet to be added in this textarea -->
+    <div id="codeDiv" class="shadow p-3 mb-5 bg-body rounded">
+        <div id='linkBox' class='form-group'>
+            <label for='urlCodeBlock'>Copy & Paste in README.md</label>
+            <textarea class='form-control' id='urlCodeBlock' rows='6'></textarea>
+        </div>
+    </div>
+
     <div id='getUrl-btnDiv'> 
         <button id='getUrl-btn' class='btn btn-outline-primary' > Get Image URL ! </button>
     </div>
+
     
 </body>
 </html>

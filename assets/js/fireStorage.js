@@ -18,20 +18,23 @@ export const storage = getStorage(app);
 
 
 
+/* 
+    Funtion : Uploads Image to Forebase Storage
 
-
+    Parameters 3 :  Data URL Image, 
+                    (Sring) Image Name 
+                    (String) User Name
+    Returns       : Promise with url 
+*/
 export function storeImage(image, imageName, userName) {
 	const storageRef = ref(storage, "Contributors/"+userName+"/"+imageName);
-	console.log(storageRef);
 
     // Upload the file to the path "Contributors/imageName.png"
     return uploadString(storageRef, image, 'data_url').then(() => {
         console.log('Uploaded a data_url string!');
         // returning image promise
         return getDownloadURL(storageRef).then((url) => {
-            console.log(url);
             return url;
         });
     });
-
 };

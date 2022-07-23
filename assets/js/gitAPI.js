@@ -5,66 +5,94 @@ import { setDB} from "./fireDB.js";
 let promise;
 
 
+/* 
+    Funtion gerPreview() :  Create png image from html div
+                            Upload to Firebase Storage by function storeImage()
+                            Update same in Firebase realtime Database by function setDB()
 
+    Parameters 2 :  
+                    (String) User Name
+                    (Sring) Repository Name 
+    Returns       : null
+*/
 function getPreview(userName, repoName)
 {
     html2canvas(
         document.getElementById("avatarDiv"),{
+            logging: true,
             allowTaint: true,
             useCORS: true,
             backgroundColor: null, 
-            scale:2
-        
+            // scale:2    
         }).then(function (canvas){
             var fileName = userName+"_"+repoName+".png"		
             var fileImage = canvas.toDataURL("image/png");
             var imagePromise = storeImage(fileImage, fileName, userName);
+            
+            // Update Firebase realtime Database
+            let contribGraphsUrl = "https://github.com/"+userName+"/"+repoName+"/graphs/contributors";
             imagePromise.then(function(url){
                 setDB(userName, repoName, url);
+                $("#urlCodeBlock").val("<a href='"+contribGraphsUrl+"'>\n\t<img src='"+url+"'>\n\t</img>\n</a>\n\nMade with [Git Contributors](https://github.com/onkardighe/git-contributors).");
             });
-
             promise = imagePromise;
         });
-
 }
 
 
+/* 
+    Funtion getData() :     Fetch data from given API
+                            update frontend 
 
-function getData(url)
+    Parameters 2 :  
+                    (String) API URL for contributors in github repo
+    Returns       : boolean (True if rendering is complete)
+*/
+function getData(API_URL)
 {
     var avatarDiv = $("#avatarDiv")
-    avatarDiv.css("display", "block");
-    let empty = "<div id='avatarDiv' class='shadow p-3 mb-5 bg-body rounded'></div>";
-    let data = "";
+    avatarDiv.show();
     $("#avatarImg").remove();
 
-    $.get(url, function (data) {
+    $.get(API_URL, function (data) {
         for(let i  in data)
         {
             let user = data[i];
-            let avatar = "<a href="+user.html_url+"><img id='avatarImg' src="+user.avatar_url+"></img></a>";
+            let avatar = "<img id='avatarImg"+i+"' src='"+user.avatar_url+"'></img>";
             avatarDiv.append(avatar);
         }
-        avatarDiv.append("<div id='linkBox' class='form-group'><label for='urlCodeBlock'>Copy & Paste in README.md</label><textarea class='form-control' id='urlCodeBlock' rows='5'></textarea></div>");
-        $("#linkBox").hide();
-
         $("#avatarDiv img").css({"border-radius":"300px", "width":"60px"});
         avatarDiv.css({
             "width":"50%",
         });
     });
+
+    // ensuring that rendering is complete
+    return true;
 }
 
 
+/* 
+    Funtion getContgributorsUrl() :     Create a Dynamic API Url
 
+    Parameters 2    :   (String) User Name
+                        (String) Repo Name
+    Returns         :   (String) API URL  
+*/
 function getContgributorsUrl(userName, repoName)
 {
     return "https://api.github.com/repos/"+userName+"/"+repoName+"/contributors";
 }
 
 
+/* 
+    Funtion isValidGithubRepository() :     Checks whether reposistory exists or not
 
-// checks whether reposistory exists or not
+    Parameters 2    :   (String) User Name
+                        (String) Repo Name
+
+    Returns         :   (Boolean) true if repo is valid  
+*/
 function isValidGithubRepository(userName, repoName)
 {
     let url = "https://api.github.com/repos/"+userName+"/"+repoName;
@@ -82,14 +110,10 @@ function isValidGithubRepository(userName, repoName)
 }
 
 
-
-
-
-
-
 $(document).ready(function(){
     $("#getUrl-btn").hide();
-    
+    $("#avatarDiv").hide();
+    $("#codeDiv").hide();
 
 
     // click on generate button
@@ -98,16 +122,11 @@ $(document).ready(function(){
         let repo = $("#gitRepo").val();
         if(user.length != 0 && repo.length != 0)
         {
-            console.log("Same length");
             if(isValidGithubRepository(user, repo))
             {
-                console.log("Valid repository");
-                var url = getContgributorsUrl(user, repo);
-                getData(url);
-
-                // capture
+                var APIurl = getContgributorsUrl(user, repo);
+                getData(APIurl);
                 $("#generate-btn").hide();
-                getPreview(user, repo);
                 $("#getUrl-btn").show();
             }
         }
@@ -123,16 +142,8 @@ $(document).ready(function(){
         let user = $("#gitUser").val();
         let repo = $("#gitRepo").val();
 
-        let contribGraphsUrl = "https://github.com/"+user+"/"+repo+"/graphs/contributors";
-
         $("#getUrl-btn").hide();
-        $("#linkBox").show();
-        console.log("clicked url button");
-        promise.then(function(url){
-            console.log("from url button");
-            $("#urlCodeBlock").val("<a href='"+contribGraphsUrl+"'><img src='"+url+"'></img></a>");
-            console.log(url);
-        });
+        $("#codeDiv").show();
+        getPreview(user, repo);
     });
-
 });

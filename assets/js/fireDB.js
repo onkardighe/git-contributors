@@ -15,20 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const database = getDatabase(app);
+
 // database reference
 const dbRef = ref(database);
-
-// temp
-get(child(dbRef, 'onkardighe')).then((data) => {
-	if (data.exists()) {
-	  console.log(data.val());
-	} else {
-	  console.log("No data available");
-	}
-  }).catch((error) => {
-	console.error(error);
-});
-
 
 
 // function to write in database
@@ -37,9 +26,3 @@ export function setDB(user, repo, imageUrl)
 	console.log("data updated");
 	set(ref(database,user+"/"+repo),imageUrl);
 }
-
-
-
-
-
-

@@ -12,8 +12,9 @@ body #heading{
     text-align: center;
 }
 
-body #avatarDiv{
-    display:none;
+
+/* both Avatar and Code  Divisions */
+body #avatarDiv, #codeDiv{
     border-radius: 20px;
     margin-left: 25%;
     margin-right: 25%;
@@ -23,7 +24,6 @@ body #avatarDiv{
     padding: 20px;
     text-align: center;
 }
-
 
 
 body #generate-btn
@@ -49,14 +49,13 @@ pre code {
     padding: 20px;
   }
 
-#avatarDiv #linkBox{
-    margin: 3%;
-    margin-bottom: 1%;
-    text-align: left;
+#linkBox {
+    text-align: center;
     font-weight: 600;
 }
 
 #linkBox #urlCodeBlock{
     text-align: left;
 }
+
 
